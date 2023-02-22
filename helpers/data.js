@@ -13,9 +13,14 @@ const data = {
 
     nextCompete: '1/1/2023',
 
-    exercises: [
-        
-    ],
+    exercises:{
+        Legs:[
+            'Leg Extensions',
+            'Leg press',
+            'Haack squat',
+            'Split Squats'
+        ],
+    },
 
     workouts: [],
 

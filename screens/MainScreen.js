@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import SummaryBar from '../components/SummaryBar';
+import YourProgram from '../components/YourProgram';
 
 import data from '../helpers/data';
 
@@ -10,6 +11,11 @@ import { Calendar } from 'react-native-calendars';
 import bg from '../assets/weight2.jpg';
 
 const MainScreen = ({navigation}) => {
+  
+    
+       const Total = data.ormPress + data.ormDeadlift + data.ormSquat
+    
+  
 
     return (
     <View style={styles.container}>
@@ -20,19 +26,21 @@ const MainScreen = ({navigation}) => {
             <Text style={styles.subTitle}>Strength Training</Text>
           </View>
           <View style={styles.summaryBox}>
-            <Text style={styles.combined}>Combined</Text>
-            <Text style={styles.bigNumber}>1,500 {data.units}</Text>
+            <Text style={styles.combined}>Your Total is </Text>
+            <Text style={styles.bigNumber}>{Total} {data.units}</Text>
             <Text style={styles.competeDays}>Compete in</Text>
             <Text style={styles.bigNumber}>22 days</Text>
           </View>
         </View>
 
         <View style={styles.summaryContainer}>
+          <YourProgram title= "Program" />
           <SummaryBar title="Deadlift" orm={data.ormDeadlift} tm={data.tmDeadlift} />
           <SummaryBar title="Press" orm={data.ormPress} tm={data.tmPress} />
           <SummaryBar title="Squat" orm={data.ormSquat} tm={data.tmSquat} />
         </View>
 
+     
         <View style={styles.calendarContainer}>
           <Calendar style={{ color: 'white', backgroundColor: 'rgba(52, 52, 52, 0.4)'}}
           headerStyle={{ color: 'white', backgroundColor: 'rgba(52, 52, 52, 0.4)'}}
