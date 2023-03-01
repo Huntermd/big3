@@ -4,15 +4,15 @@ import { useNavigation } from '@react-navigation/native';
 import data from '../helpers/data';
 import img from '../assets/ProgramPic.jpeg';
 
-const YourProgram = ( { title} ) => {
+const YourProgram = ( { title, name, Image},   ) => {
 
     const navigation = useNavigation();
 
     return (
         <View style={styles.containerContain}>
         <Pressable  onPress={() => navigation.navigate(title)}>
-            <ImageBackground source={img} resizeMode="cover" style={styles.container} >
-        <Text style={styles.myText}>Your Program</Text>
+            <ImageBackground source={Image} resizeMode="cover" style={styles.container} >
+        <Text style={styles.myText}>{name}</Text>
         </ImageBackground>
         </Pressable>
         </View>
@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
 
    },
    myText:{
-    backgroundColor: 'grey'
+    backgroundColor: 'black',
+    color: 'yellow',
    },
    containerContain:{
     alignItems: 'center'
