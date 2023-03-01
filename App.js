@@ -5,6 +5,7 @@ import DeadLiftScreen from './screens/DeadLiftScreen';
 import PressScreen from './screens/PressScreen';
 import SquatScreen from './screens/SquatScreen';
 import ProgramScreen from './screens/ProgramScreen';
+import HealthScreen from './screens/HealthScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Press" component={PressScreen} />
         <Stack.Screen name="Squat" component={SquatScreen} />
         <Stack.Screen name="Program" component={ProgramScreen} />
+        <Stack.Screen name="Health" component={HealthScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
