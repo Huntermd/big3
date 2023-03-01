@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import SummaryBar from '../components/SummaryBar';
 import YourProgram from '../components/YourProgram';
-
+import HealthFitness from '../components/HealthFitness';
 import data from '../helpers/data';
-
+import img from '../assets/ProgramPic.jpeg';
 
 import { Calendar } from 'react-native-calendars';
 
@@ -34,7 +34,7 @@ const MainScreen = ({navigation}) => {
         </View>
 
         <View style={styles.summaryContainer}>
-          <YourProgram title= "Program" />
+         <HealthFitness/>
           <SummaryBar title="Deadlift" orm={data.ormDeadlift} tm={data.tmDeadlift} />
           <SummaryBar title="Press" orm={data.ormPress} tm={data.tmPress} />
           <SummaryBar title="Squat" orm={data.ormSquat} tm={data.tmSquat} />
@@ -129,5 +129,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-end',
 
-  }
+  },
+
 });
