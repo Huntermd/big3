@@ -3,10 +3,12 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { Pedometer } from 'expo-sensors';
 import { useState, useEffect } from 'react';
+import MealCalTracker from './MealCalTracker';
 
 export default function TimeSteps({title}) {
 const [modalOpen,setModalOpen] = useState(false);
 const [Calories, setCalories] = useState(2000)
+const [CurrentCalories, setCurrentCalories] = useState(0)
 
   const [isPedometerAvailable, setIsPedometerAvailable] = useState('checking');
   const [pastStepCount, setPastStepCount] = useState(0);
@@ -73,12 +75,17 @@ const [Calories, setCalories] = useState(2000)
         
     <View style={styles.FoodTracker} >
     <Pressable style={styles.Calories} onPress={() => setModalOpen(true)}>
-    
-        <Text style={styles.CaloriesText}>Calories Today : {Calories}Cal</Text>
+      <Text>Daily Calories</Text>
+        <Text style={styles.CaloriesText}>{CurrentCalories}/{Calories}Cal</Text>
       </Pressable>
      
       <Pressable onPress={() => navigation.navigate(title)} style={styles.CalorieTrackerContainer}>
-      <Text>Text</Text>
+      <Text>Daily Calories</Text>
+      <MealCalTracker meal='Breakfast' val= '0'/>
+      <MealCalTracker meal='Snack1' val= '0'/>
+      <MealCalTracker meal='Lunch' val= '0'/>
+      <MealCalTracker meal='Snack2' val= '0'/>
+      <MealCalTracker meal='Dinner' val= '0'/>
       </Pressable>
         
       </View>
@@ -135,7 +142,7 @@ const styles = StyleSheet.create({
     Calories:{
       alignItems: 'center',
       justifyContent: 'center',
-            
+      
       width: 200,
       height: 100,
       marginTop: -100
@@ -195,9 +202,10 @@ const styles = StyleSheet.create({
       
     },
     CalorieTrackerContainer:{
-      borderColor: 'white',
-      borderWidth: 1,
+      
       height: '100%',
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor:'lightgrey',
+      justifyContent: 'space-evenly'
     }
 })
