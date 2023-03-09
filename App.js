@@ -6,6 +6,7 @@ import PressScreen from './screens/PressScreen';
 import SquatScreen from './screens/SquatScreen';
 import ProgramScreen from './screens/ProgramScreen';
 import HealthScreen from './screens/HealthScreen';
+import CalorieTrackerScreen from './screens/CalorieTrackerScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -15,6 +16,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Cal" component={CalorieTrackerScreen}/>
         <Stack.Screen name="Home" component={MainScreen}/>
         <Stack.Screen name="Deadlift" component={DeadLiftScreen} />
         <Stack.Screen name="Press" component={PressScreen} />
