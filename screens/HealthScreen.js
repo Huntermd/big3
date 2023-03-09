@@ -6,7 +6,7 @@ export default function HealthScreen({navigation}) {
   return (
     <View>
       <Text style={styles.HeadlineText}>Health and Fitness</Text>
-      <TimeSteps/>
+      <TimeSteps title='Cal' />
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={{color: 'grey'}}>Back</Text>
       </Pressable>
