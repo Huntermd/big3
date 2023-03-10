@@ -15,9 +15,13 @@ export default function ProgramScreen({navigation}) {
   }
 
   const RemovePress = ( ) => {
+
+
+    const NewComponent = component.pop();
     setComponent(
+      NewComponent
       //component.filter(component => component !== component)
-      component => component.pop()
+      //component => component.pop()
     );
 
   }
