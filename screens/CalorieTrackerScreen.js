@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
@@ -15,6 +15,10 @@ export default function CalorieTrackerScreen() {
   return (
     <View>
       <Text>CalorieTrackerScreen</Text>
+      <TextInput style={styles.CalInput} 
+      placeholder='2000'
+      onChangeText={(val) => setBreakfast(val)}
+      />
 
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={{color: 'grey'}}>Back</Text>
@@ -22,6 +26,8 @@ export default function CalorieTrackerScreen() {
     </View>
   )
 }
+
+
 
 const styles = StyleSheet.create({
     backButton: {
@@ -32,6 +38,14 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'grey',
         borderRadius: 12,
+        
+        
+      },
+      CalInput:{
+        borderColor: 'black',
+        borderWidth: 1,
+        width: 60,
+        height: 35,
         
         
       },
