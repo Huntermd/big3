@@ -5,6 +5,7 @@ import { Pedometer } from 'expo-sensors';
 import { useState, useEffect } from 'react';
 import MealCalTracker from './MealCalTracker';
 
+
 export default function TimeSteps({title}) {
 const [modalOpen,setModalOpen] = useState(false);
 const [Calories, setCalories] = useState(2000)
