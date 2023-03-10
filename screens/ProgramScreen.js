@@ -9,8 +9,17 @@ export default function ProgramScreen({navigation}) {
   const [component,setComponent] = useState([]);
 
   const handlePress = () => {
-
+      
+      
     setComponent(component => [...component, '1']);
+  }
+
+  const RemovePress = ( ) => {
+    setComponent(
+      //component.filter(component => component !== component)
+      component => component.pop()
+    );
+
   }
 
 
@@ -27,12 +36,21 @@ export default function ProgramScreen({navigation}) {
       })}
 
 
-      <Pressable  onPress={handlePress} >
+     <View style={styles.RemoveAdd}>
+     <Pressable  onPress={handlePress} >
       
-        <View>
-          <Text> Press me </Text>
-        </View>
-      </Pressable>
+      <View>
+        <Text> Press me </Text>
+      </View>
+    </Pressable>
+
+    <Pressable  onPress={RemovePress} >
+    
+    <View>
+      <Text> delete  me </Text>
+    </View>
+  </Pressable>
+     </View>
       
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={{color: 'grey'}}>Back</Text>
@@ -58,6 +76,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     
     
+  },
+  RemoveAdd:{
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
    
 })
