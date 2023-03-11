@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 
 
-export default function Accesorys() {
+export default function Accesorys({Press}) {
    
   const [modal1Open,setModal1Open] = useState(false);
   const [modal2Open,setModal2Open] = useState(false);
@@ -17,6 +17,9 @@ export default function Accesorys() {
   return (
     <View style = {styles.rowContainer}>
       <View style={styles.barTitle}>
+        <Pressable onPress = {Press}>
+          <Text>X</Text>
+        </Pressable>
       <SelectDropdown
        
        data = {data.exercises.Legs}
