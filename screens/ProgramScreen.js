@@ -38,7 +38,7 @@ export default function ProgramScreen({navigation}) {
       <Accesorys   />
 
     {  component.map((data) => {
-        return <Accesorys key={data.id}  Press = {RemovePress}/>;
+        return <Accesorys key={data.id} />;
       })}
 
 
@@ -50,12 +50,12 @@ export default function ProgramScreen({navigation}) {
       </View>
     </Pressable>
 
-   {/* <Pressable  onPress={RemovePress} >
+    <Pressable  onPress={RemovePress} >
     
     <View>
       <Text> delete  me </Text>
     </View>
-  </Pressable>*/}
+  </Pressable>
      </View>
       
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
