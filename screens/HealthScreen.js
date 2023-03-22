@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View , Pressable} from 'react-native'
 import React from 'react'
 import TimeSteps from '../components/TimeSteps'
+import { BreakfastContext } from './CalorieTrackerScreen';
 
 export default function HealthScreen({navigation}) {
+  
   return (
     <View>
       <Text style={styles.HeadlineText}>Health and Fitness</Text>
