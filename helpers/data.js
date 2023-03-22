@@ -62,11 +62,22 @@ const data = {
         '17',
         '18',
         '19',
-        '20',
+        '20'
 
 
 
 ],
+
+Summary:{
+    Squat:{
+        BackSquat:{
+            Header: 'Hello Back Squat'
+        },
+        FrontSquat:{
+            Header: 'Hello Front Sqauts'
+        }
+    }
+}
 
 
 
