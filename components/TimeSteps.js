@@ -1,12 +1,17 @@
 import { StyleSheet, Text, View, Pressable, Modal, TextInput } from 'react-native'
-import React from 'react'
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Pedometer } from 'expo-sensors';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext  } from 'react';
 import MealCalTracker from './MealCalTracker';
+import { BreakfastContext } from '../screens/CalorieTrackerScreen';
+import { BreakContext } from './Breakfast';
+import { MyContext } from './Provider';
 
 
 export default function TimeSteps({title}) {
+const state = useContext(MyContext);
+  const Breakfast = useContext(BreakContext);
 const [modalOpen,setModalOpen] = useState(false);
 const [Calories, setCalories] = useState(2000)
 const [CurrentCalories, setCurrentCalories] = useState(0)
@@ -82,10 +87,10 @@ const [CurrentCalories, setCurrentCalories] = useState(0)
      
       <Pressable onPress={() => navigation.navigate(title)} style={styles.CalorieTrackerContainer}>
       <Text>Daily Calories</Text>
-      <MealCalTracker meal='Breakfast' val= '0'/>
-      <MealCalTracker meal='Snack1' val= '0'/>
+      <MealCalTracker meal='Breakfast' val= {state}/>
+      
       <MealCalTracker meal='Lunch' val= '0'/>
-      <MealCalTracker meal='Snack2' val= '0'/>
+      
       <MealCalTracker meal='Dinner' val= '0'/>
       </Pressable>
         
