@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
+
 export default function MealCalTracker({meal, val}) {
   return (
     <View style={styles.container}>
@@ -16,6 +17,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: 'black',
         borderWidth: 1,
-        width: '90%'
+        width: '90%',
     }
 })
