@@ -7,7 +7,7 @@ import data from '../helpers/data'
 
 export default function ProgramScreen({navigation}) {
 
-  const [component,setComponent] = useState([]);
+   const [component,setComponent] = useState([]);
 
   const handlePress = () => {
       
