@@ -8,6 +8,8 @@ import ProgramScreen from './screens/ProgramScreen';
 import HealthScreen from './screens/HealthScreen';
 import CalorieTrackerScreen from './screens/CalorieTrackerScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TimeSteps from './components/TimeSteps';
+import Provider from './components/Provider';
 
 
 const Stack = createNativeStackNavigator();
@@ -15,7 +17,10 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
+
+      
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+      
       <Stack.Screen name="Cal" component={CalorieTrackerScreen}/>
         <Stack.Screen name="Home" component={MainScreen}/>
         <Stack.Screen name="Deadlift" component={DeadLiftScreen} />
