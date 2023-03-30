@@ -42,9 +42,9 @@ const [CurrentCalories, setCurrentCalories] = useState(0)
 
   useEffect(() => {
     const subscription = subscribe();
-    return () => subscription && subscription.remove();
+    return () => subscription ;
   }, []);
-
+// && subscription.remove()
   const burned = pastStepCount / 20
 
   const navigation = useNavigation();
