@@ -10,10 +10,11 @@ import CalorieTrackerScreen from './screens/CalorieTrackerScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TimeSteps from './components/TimeSteps';
 import Provider from './components/Provider';
-
+import CameraComponent from './components/CameraComponent';
+import Scanner from './components/Scanner';
 
 const Stack = createNativeStackNavigator();
-
+// <Stack.Screen name="Scanner" component={Scanner}/>
 export default function App() {
   return (
     <NavigationContainer>
@@ -28,6 +29,8 @@ export default function App() {
         <Stack.Screen name="Squat" component={SquatScreen} />
         <Stack.Screen name="Program" component={ProgramScreen} />
         <Stack.Screen name="Health" component={HealthScreen}/>
+        <Stack.Screen name="Camera" component={CameraComponent}/>
+        <Stack.Screen name="Scanner" component={Scanner}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
