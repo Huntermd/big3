@@ -8,6 +8,9 @@ import axios from 'axios';
 import { Camera , CameraType } from 'expo-camera';
 import CameraComponent from '../components/CameraComponent';
 import BrandedCommonTile from '../components/BrandedCommonTile';
+import CommonTile from '../components/CommonTile';
+import { Data } from '../helpers/DataFood';
+import { Food } from '../helpers/FoodInfo';
 
 let reqInstance = axios.create({
 headers:{
@@ -25,14 +28,29 @@ headers:{
 export const BreakfastContext = createContext()
 
 export default function CalorieTrackerScreen() {
+  const TextColor = () => {
+    let color;
+    if (Calories >= 0){
+      color = 'green';
+    }
+    if (Calories < 0){
+      color = 'red';
+    }
+    return color;
+  };
 
-  
-  const [NutData, setNutData] = useState({});
-  const [count, setCount] = useState(0);
+  const [Calories, setCalories] = useState(2000);
+  const [NutData, setNutData] = useState(Food);
+  const [Call,setCall] = useState('apple');
 
- const handlePress = ( ) => {
+  const InfoPress = () =>{
+    
+    
+  }
+
+ const handlePress = (  ) => {
  
-  reqInstance.get('https://trackapi.nutritionix.com/v2/search/instant?query=apple').then(  (response) => 
+  reqInstance.get('https://trackapi.nutritionix.com/v2/search/instant?query='+ Call +'&self=true&branded=true&branded_food_name_only=false&common=true&common_general=true&common_grocery=true&common_restaurant=true&detailed=true&claims=false&taxonomy=false').then(  (response) => 
   {  // console.log(response);
    
    setNutData(response.data); 
@@ -65,6 +83,7 @@ const CloseApi = () => {
 
 useEffect(() => {
   console.log(NutData)
+  
 }, [NutData])
 
 
@@ -104,25 +123,38 @@ const [Dinner,setDinner] = useState(199);
 
       <Modal visible={ApiOpen} transparent={true} >
        <View style={styles.centeredView}>
-       <View style={styles.modalView}>
+        
+       <View style={styles.SearchView}>
+       <Pressable  onPress={() => {CloseApi();}}>
+        <Text style={{color: 'grey', fontSize: 25, fontWeight: 'bold'}}> X</Text>
+      </Pressable>
        <View style={styles.SearchRow}>
-        <TextInput style={styles.SearchInput}/>
+        <TextInput style={styles.SearchInput}
+         placeholder='Apple'
+         onChangeText={(val) => setCall(val)}
+        
+        />
        <Pressable style={styles.SearchButton} onPress={handlePress}>
         <Text style={{color: 'black'}}>Press </Text>
       </Pressable>
        </View>
 
-       <View style = {styles.ContentContainer}>
-    <View style={styles.BrandedContainer}></View>
+       <ScrollView style = {styles.ContentContainer} >
+       {NutData.branded.map((data) => {
+        return <BrandedCommonTile  name={data.brand_name_item_name} cal={data.nf_calories}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.nix_item_id} Calories={Calories} setCalories={setCalories}/>
 
-       </View>
+       })}
+        {NutData.common.map((data) => {
+        return <CommonTile  name={data.food_name} cal={data.full_nutrients}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.tag_id} Calories={Calories} setCalories={setCalories}/>
+
+       })}
+    
+       </ScrollView>
         
       
    
 
-       <Pressable style={styles.backButton} onPress={() => {CloseApi(); Open();}}>
-        <Text style={{color: 'grey'}}>Back</Text>
-      </Pressable>
+  
        </View>
        </View>
       
@@ -139,23 +171,27 @@ const [Dinner,setDinner] = useState(199);
 
      <View style={styles.Container}>
     <View style={styles.NavBar}>
-    <NavCal name = 'Breakfast' cal = {Breakfast}/>
-    <NavCal name = 'Breakfast' cal = {Lunch}/>
-    <NavCal name = 'Breakfast' cal = {Dinner}/>
+    <Text style={{fontSize: 30, color: TextColor()}}>{Calories} Calories Left</Text>
     </View>
-    <Pressable style={styles.backButton} onPress={() => navigation.navigate('Scanner')}>
+    {/* <Pressable style={styles.backButton} onPress={() => navigation.navigate('Scanner')}>
       <Text>Pressssedddd</Text>
-    </Pressable>
+    </Pressable> */}
   
-    <Text></Text>
+    <ScrollView style={styles.ScrollContainer}>
     {  Nutrient.map((data) => {
-        return <FoodData/>;
+        return <FoodData info={data.data} id={data.id} name={data.name} state={Nutrient} nut={setNutrient} data={data} Calories={Calories} setCalories={setCalories}/>;
       })}
+    </ScrollView>
+    
 
-<Pressable style={styles.backButton}  onPress={ () => { Open() }
+{console.log(Nutrient)}
+
+<View >
+<Pressable style={styles.OpenButton}  onPress={ () => { OpenApi(); }
  }>
-        <Text style={{color: 'grey'}}>Press me </Text>
+        <Text style={{color: 'grey', fontSize: 30, fontWeight: 'bold', marginTop: -8}}>+</Text>
       </Pressable>
+</View>
 
 
 
@@ -196,6 +232,9 @@ const styles = StyleSheet.create({
     width: '95%',
     borderColor: 'black',
     borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20
     
   },
   modalView: {
@@ -275,16 +314,50 @@ const styles = StyleSheet.create({
     
   },
   ContentContainer:{
-    flexDirection: 'row',
-    borderColor: 'black',
-    borderWidth: 5,
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    
     width:'100%',
-    height: '80%'
+    height: '88%',
+    borderBottomColor: 'black',
+    borderBottomWidth: 4
   },
   BrandedContainer:{
     width: '50%',
     borderColor: 'black',
     borderWidth: 5,
+  },
+  SearchView:{
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'flex-start',
+    shadowColor: '#000',
+    width: '92%',
+    height: '90%',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  OpenButton:{
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    borderColor: 'black',
+    borderWidth:4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  ScrollContainer:{
+    height: 'auto',
+    width: '100%'
   }
+
 })
 

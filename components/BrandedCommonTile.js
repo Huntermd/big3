@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Modal, Pressable,Image } from 'react-native'
 import React from 'react'
 import { useState , useEffect} from 'react';
 import axios from 'axios';
+import ModalComponent from './ModalComponent';
 
 
 
@@ -16,101 +17,25 @@ let reqInstance = axios.create({
     
     });
     
-export default function BrandedCommonTile({img, name,cal,brand,id}) {
+export default function BrandedCommonTile({ name,cal,Press, info, Nut,id,Calories, setCalories}) {
     const [modalOpen,setModalOpen] = useState(false);
     const [NutData, setNutData] = useState({});
-    
-    const handlePress = ( ) => {
- 
-     
-        reqInstance.get('https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + {id}).then(  (response) => 
-        {  // console.log(response);
-         
-         setNutData(response.data); 
-         
-         
-        })
-        .catch((error) => {
-         console.log(error);
-        });
-       
-       }
 
-      useEffect(() => {
-        console.log(NutData)
-      }, [NutData])
+    const Open = () => (
+      setModalOpen(true)
+    
+    
+    )
+    
+   
   return (
-    <Pressable style={styles.Container}>
-        <Image src = {img}/>
-      <Text>{name}</Text>
-      <Text>{cal}</Text>
-      <Text>{brand}</Text>
-
-      <Modal visible={modalOpen} transparent={true} >
-       <View style={styles.centeredView}>
-       <View style={styles.modalView}>
-        <View style={styles.ModalContentName}>
-        <Text style={styles.ModalContentNameText}></Text>
-        </View>
-       <Text>400cals</Text>
-     <View style={styles.ContainNut}>
-     <View style={styles.MicroNut}>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       
-
-
-       </View>
-     </View>
-
-       <Pressable style={styles.backButton} onPress={() => setModalOpen(false)}>
-        <Text style={{color: 'grey'}}>Back</Text>
-      </Pressable>
-       </View>
-       </View>
-      
-      
-     
-    
-    
-      </Modal>
-
-
+    <Pressable style={styles.Container} onPress={Open}>
+        {/* <Image source = {img.photo.thumb} alt='hi' style={styles.ImageSize}/> */}
+  <View>
+  <Text style={styles.text}>{name}</Text>
+      <Text>{cal}Cal</Text>
+  </View>
+      <ModalComponent Open={modalOpen} Close={setModalOpen} Facts={info} Food={name} Pressing={Press} Nutt={Nut} id={id} Calories={Calories} setCalories={setCalories}/>
     </Pressable>
   )
 }
@@ -118,9 +43,16 @@ export default function BrandedCommonTile({img, name,cal,brand,id}) {
 const styles = StyleSheet.create({
     Container:{
         flexDirection: 'row',
-        width: '50%',
-        height: '10%',
-        flexWrap:'wrap'
+        width: '100%',
+        height: 50,
+        backgroundColor: 'red',
+        // borderBottomColor: 'black',
+        // borderBottomWidth: 2,
+        borderColor: 'black' ,
+        borderWidth: 2,
+        justifyContent: 'space-evenly',
+        borderRadius: 10
+        
     },
     backButton: {
         width: '35%',
@@ -187,6 +119,13 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         margin: 4,
         backgroundColor: 'white',
+      },
+      text:{
+        fontSize: 9
+      },
+      ImageSize:{
+        width: 30,
+        height: 30
       }
     
 })

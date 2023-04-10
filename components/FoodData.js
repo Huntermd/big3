@@ -1,85 +1,35 @@
 import { StyleSheet, Text, View, Pressable, Modal } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
-export default function FoodData() {
+import FoodDataModel from './FoodDataModel';
+
+export default function FoodData({info, id, name, state, nut, data,Calories, setCalories }) {
     const [modalOpen,setModalOpen] = useState(false);
+    const CaloriesItem = info.filter(item => item.attr_id === 208)
+    const Num =  Math.round(CaloriesItem[0].value);
+    const ProteinItem = info.filter(item => item.attr_id === 203)
+    const Pro =  Math.round(ProteinItem[0].value);
+    const CarbsItem = info.filter(item => item.attr_id === 205)
+    const Carbs =  Math.round(CarbsItem[0].value);
+    const FatItem = info.filter(item => item.attr_id === 204)
+    const Fat =  Math.round(FatItem[0].value);
   return (
     <Pressable style={styles.Contain} onPress={() => setModalOpen(true)}>
 <View style={styles.container}>
-    <View style={styles.Content}>
-    <Text>Big Mac</Text>
-    <Text>100 Calories</Text>
-    <Text> 10g Protein</Text>
-    <Text> 90g Carbs</Text>
-    <Text> 90g Fats</Text>
+ <View style={styles.ContentView}>
+ <Text style={{fontSize: 10}}>{name}</Text> 
+ <View style={styles.Content}>
+   
+    <Text>{Num} Calories</Text>
+    <Text> {Pro}g Protein</Text>
+    <Text> {Carbs}g Carbs</Text>
+    <Text> {Fat}g Fats</Text>
     </View>
+ </View>
      
  </View>
-
- <Modal visible={modalOpen} transparent={true} >
-       <View style={styles.centeredView}>
-       <View style={styles.modalView}>
-        <View style={styles.ModalContentName}>
-        <Text style={styles.ModalContentNameText}>Big Mac</Text>
-        </View>
-       <Text>400cals</Text>
-     <View style={styles.ContainNut}>
-     <View style={styles.MicroNut}>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       <View style={styles.NutContent}>
-       <Text>400cals</Text>
-       <Text>Protein</Text>
-       </View>
-       
-
-
-       </View>
-     </View>
-
-       <Pressable style={styles.backButton} onPress={() => setModalOpen(false)}>
-        <Text style={{color: 'grey'}}>Back</Text>
-      </Pressable>
-       </View>
-       </View>
-      
-      
-     
     
-    
-      </Modal>
-
+<FoodDataModel Open={modalOpen} Close={setModalOpen} Facts={info} nutrition={state} Food={name} Nutt={nut} id={id} data={data} Calories={Calories} setCalories={setCalories}/>
 
 
 
@@ -91,12 +41,13 @@ export default function FoodData() {
 const styles = StyleSheet.create({
     container:{
         width: '95%',
-        height: '30%',
+        height: 50,
         borderColor: 'black',
         borderWidth: 2,
         justifyContent: 'center',
     marginTop: 2,
-    backgroundColor: 'lightgrey'       
+    backgroundColor: 'lightgrey',
+    borderRadius: 10       
         
     },
     Contain:{
@@ -171,5 +122,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         margin: 4,
         backgroundColor: 'white',
+      },
+      ContenView:{
+        flexDirection: 'column'
       }
 })
