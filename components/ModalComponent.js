@@ -1,14 +1,29 @@
 import { StyleSheet, Text, View, Modal, Pressable, ScrollView } from 'react-native'
 import React from 'react'
 import NutInfoRow from './NutInfoRow'
-
+import SelectDropdown from 'react-native-select-dropdown';
+import data from '../helpers/data';
+import { useState, useEffect } from 'react';
+import { ServingSize } from '../helpers/ServingSizeHelper';
 export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, id, Calories, setCalories}) {
+ 
+  const [Serving, setServing] = useState(1)
+  const [ServingNum, setServingNum] = useState(1);
+  const [Serving2, setServing2] = useState(null)
+  const [ServingNum2, setServingNum2] = useState()
+  const [Multi, setMulti] = useState(1);
+
+  useEffect(() => {
+    console.log(Multi)
+    
+  }, [Multi])
+
   const CaloriesItem = Facts.filter(item => item.attr_id === 208)
   const Num =  Math.round(CaloriesItem[0].value);
-    const InfoPress = (data, id, name) =>{
-        Nutt(component => [...component, {data, id, name  }]);
-        
-      setCalories(Calories - Num )
+    const InfoPress = (data, id, name, serving1, serving2, multi) =>{
+        Nutt(component => [...component, {data, id, name, serving1, serving2, multi  }]);
+         let Num = Serving + Serving2
+      setCalories(Calories - Math.round(Num) )
     }
   return (
    <Modal
@@ -16,23 +31,77 @@ export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, 
    >
  <View style={styles.centeredView}>
        <View style={styles.modalView}>
-        <View style={styles.ModalContentName}>
+        <View >
      <View style={styles.ButtonRow}>
      <Pressable  onPress={() => Close(false)}>
         <Text style={{color: 'grey', fontSize: 25, fontWeight: 'bold'}}> X</Text>
       </Pressable>
-      <Pressable style={styles.AddButton} onPress={() => {Close(false); Pressing(false); InfoPress(Facts, id, Food)}}>
+      <Pressable style={styles.AddButton} onPress={() => {Close(false); Pressing(false); InfoPress(Facts, id, Food,ServingNum,ServingNum2,Multi)}}>
         <Text style={{color: 'grey', fontSize: 20, fontWeight: 'bold'}}> ADD</Text>
       </Pressable>
      </View>
-        <Text style={styles.ModalContentNameText}>{Food}</Text>
+      <View >
+      <Text style={styles.ModalContentNameText}>{Food}</Text>
+     <View style={styles.ContentDropdown}>
+     <SelectDropdown
+       
+       data = {data.ServingSize1}
+       onSelect={(selectedItem, index) => {
+        let NewNum = Num * selectedItem
+        if (Serving2 === null){
+          setMulti(selectedItem)
+          setServingNum(selectedItem)
+        }else{
+          setMulti(selectedItem + ServingNum2)
+          setServingNum(selectedItem)
+        }
+        // setServingNum(selectedItem)
+        setServing(NewNum)
+        // console.log(NewNum)
+      }}
+      defaultButtonText={'Size'}
+      buttonTextAfterSelection={(selectedItem, index) => {
+        
+        return selectedItem;
+      }}
+      rowTextForSelection={(item, index) => {
+        return item;
+      }} 
+      buttonStyle={styles.dropdown4BtnStyle}
+      />
+         <SelectDropdown
+       
+       data = {data.ServingSize2}
+       onSelect={(selectedItem, index) => {
+        let NewNum = Num * ServingSize[selectedItem][0]
+        setMulti(ServingNum + ServingSize[selectedItem][0] )
+        setServingNum2(ServingSize[selectedItem][0])
+        setServing2(NewNum)
+        // console.log(NewNum)
+        // console.log(selectedItem)
+        
+      }}
+      defaultButtonText={'Size'}
+      buttonTextAfterSelection={(selectedItem, index) => {
+        
+        
+        return selectedItem;
+      }}
+      rowTextForSelection={(item, index) => {
+        return item;
+      }} 
+      buttonStyle={styles.dropdown4BtnStyle}
+      />
+     </View>
+      
+      </View>
         </View>
        
      <View style={styles.ContainNut}>
     <ScrollView style={styles.Container}>
        
         {Facts.map((data) => {
-        return  <NutInfoRow info={data}/>
+        return  <NutInfoRow info={data} multi={Multi}/>
 
        })}
        
@@ -99,12 +168,13 @@ const styles = StyleSheet.create({
         alignItems: 'baseline',
         marginTop: 22,
       },
-      ModalContentName:{
-        
+      ContentDropdown:{
+       flexDirection: 'row',
+       justifyContent: 'flex-end'
 
       },
       ModalContentNameText:{
-        fontSize: 15,
+        fontSize: 10,
         fontWeight: '900'
       },
       MicroNut:{
@@ -150,6 +220,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: -15
-  }
+  },
+  dropdown4BtnStyle: {
+    width: 70,
+    height: 30,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#444',
+  },
 
 })

@@ -11,6 +11,7 @@ import BrandedCommonTile from '../components/BrandedCommonTile';
 import CommonTile from '../components/CommonTile';
 import { Data } from '../helpers/DataFood';
 import { Food } from '../helpers/FoodInfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let reqInstance = axios.create({
 headers:{
@@ -43,9 +44,36 @@ export default function CalorieTrackerScreen() {
   const [NutData, setNutData] = useState(Food);
   const [Call,setCall] = useState('apple');
 
-  const InfoPress = () =>{
+  const storeData =  async (value) =>{
+    try {
+      await AsyncStorage.setItem('@Food_Key', JSON.stringify(value));
+    } catch (error) {
+      // Error saving data
+    }
     
-    
+  }
+
+  const getData = async () =>{
+    try {
+      const myArray = await AsyncStorage.getItem('@Food_Key');
+      if (myArray !== null) {
+        // We have data!!
+        setNutrient(JSON.parse(myArray))
+        console.log(JSON.parse(myArray));
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
+
+  const removeValue = async () => {
+    try {
+      await AsyncStorage.removeItem('@Food_Key')
+    } catch(e) {
+      // remove error
+    }
+  
+    console.log('Done.')
   }
 
  const handlePress = (  ) => {
@@ -179,7 +207,7 @@ const [Dinner,setDinner] = useState(199);
   
     <ScrollView style={styles.ScrollContainer}>
     {  Nutrient.map((data) => {
-        return <FoodData info={data.data} id={data.id} name={data.name} state={Nutrient} nut={setNutrient} data={data} Calories={Calories} setCalories={setCalories}/>;
+        return <FoodData info={data.data} id={data.id} name={data.name} state={Nutrient} nut={setNutrient} data={data} Calories={Calories} setCalories={setCalories} serving1={data.serving1} serving2={data.serving2} multi={data.multi}/>;
       })}
     </ScrollView>
     

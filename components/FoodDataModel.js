@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Modal, Pressable, ScrollView } from 'react-native'
 import React from 'react'
 import NutInfoRow from './NutInfoRow'
-
-export default function FoodDataModel({Open, Close, Nutt,nutrition,id, Food, Facts,Calories, setCalories}) {
+import { ServingSize } from '../helpers/ServingSizeHelper'
+export default function FoodDataModel({Open, Close, Nutt,nutrition,id, Food, Facts,Calories, setCalories, multi, serving1, serving2}) {
   const CaloriesItem = Facts.filter(item => item.attr_id === 208)
   const Num =  Math.round(CaloriesItem[0].value);
     const InfoPress = () =>{
@@ -17,7 +17,8 @@ export default function FoodDataModel({Open, Close, Nutt,nutrition,id, Food, Fac
          const NewArray = nutrition.filter(item => item.id !== id)
          Nutt(NewArray)
         }
-        setCalories(Calories + Num )
+        let Num1 = Num * multi
+        setCalories(Calories + Math.round(Num1) )
        
     
     }
@@ -38,12 +39,14 @@ export default function FoodDataModel({Open, Close, Nutt,nutrition,id, Food, Fac
      </View>
         <Text style={styles.ModalContentNameText}>{Food}</Text>
         </View>
-       
+        <View style={styles.ServingSize}>
+            <Text>{multi} serving size</Text>
+        </View>
      <View style={styles.ContainNut}>
     <ScrollView style={styles.Container}>
        
         {Facts.map((data) => {
-        return  <NutInfoRow info={data}/>
+        return  <NutInfoRow info={data} multi={multi}/>
 
        })}
        
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
 
       },
       ModalContentNameText:{
-        fontSize: 15,
+        fontSize: 12,
         fontWeight: '900'
       },
       MicroNut:{
@@ -161,6 +164,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: -15
-  }
+  },
+ 
 
 })

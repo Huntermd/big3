@@ -26,6 +26,7 @@ export default function Accesorys({}) {
       }}
       defaultButtonText={'Exercises'}
       buttonTextAfterSelection={(selectedItem, index) => {
+        
         return selectedItem;
       }}
       rowTextForSelection={(item, index) => {

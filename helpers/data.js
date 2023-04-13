@@ -74,11 +74,32 @@ Summary:{
             Header: 'Hello Back Squat'
         },
         FrontSquat:{
-            Header: 'Hello Front Sqauts'
+            Header: 'Hello Front Squats'
         }
     }
-}
+},
 
+ServingSize1:[
+    0 ,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+],
+ServingSize2:[
+    '1/3',
+    '2/3',
+    '1/4',
+    '1/2',
+    '3/4',
+ 
+]
 
 
 }

@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 import FoodDataModel from './FoodDataModel';
 
-export default function FoodData({info, id, name, state, nut, data,Calories, setCalories }) {
+export default function FoodData({info, id, name, state, nut, data,Calories, setCalories, serving1, serving2,multi }) {
     const [modalOpen,setModalOpen] = useState(false);
     const CaloriesItem = info.filter(item => item.attr_id === 208)
     const Num =  Math.round(CaloriesItem[0].value);
@@ -20,16 +20,16 @@ export default function FoodData({info, id, name, state, nut, data,Calories, set
  <Text style={{fontSize: 10}}>{name}</Text> 
  <View style={styles.Content}>
    
-    <Text>{Num} Calories</Text>
-    <Text> {Pro}g Protein</Text>
-    <Text> {Carbs}g Carbs</Text>
-    <Text> {Fat}g Fats</Text>
+    <Text>{Math.round(Num * multi)} Calories</Text>
+    <Text> {Math.round(Pro * multi)}g Protein</Text>
+    <Text> {Math.round(Carbs * multi)}g Carbs</Text>
+    <Text> {Math.round(Fat * multi)}g Fats</Text>
     </View>
  </View>
      
  </View>
     
-<FoodDataModel Open={modalOpen} Close={setModalOpen} Facts={info} nutrition={state} Food={name} Nutt={nut} id={id} data={data} Calories={Calories} setCalories={setCalories}/>
+<FoodDataModel Open={modalOpen} Close={setModalOpen} Facts={info} nutrition={state} Food={name} Nutt={nut} id={id} data={data} Calories={Calories} setCalories={setCalories} multi={multi}/>
 
 
 
