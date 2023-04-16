@@ -44,11 +44,13 @@ export default function CalorieTrackerScreen() {
   const [NutData, setNutData] = useState(Food);
   const [Call,setCall] = useState('apple');
 
-  const storeData =  async (value) =>{
+  const storeData =  async () =>{
     try {
-      await AsyncStorage.setItem('@Food_Key', JSON.stringify(value));
+      const jsonValue = JSON.stringify(Nutrient)
+      await AsyncStorage.setItem('@Food_Key', jsonValue);
     } catch (error) {
       // Error saving data
+      console.log(error)
     }
     
   }
@@ -111,6 +113,8 @@ const CloseApi = () => {
 
 useEffect(() => {
   console.log(NutData)
+  storeData(Nutrient)
+  getData()
   
 }, [NutData])
 
@@ -169,11 +173,11 @@ const [Dinner,setDinner] = useState(199);
 
        <ScrollView style = {styles.ContentContainer} >
        {NutData.branded.map((data) => {
-        return <BrandedCommonTile  name={data.brand_name_item_name} cal={data.nf_calories}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.nix_item_id} Calories={Calories} setCalories={setCalories}/>
+        return <BrandedCommonTile  name={data.brand_name_item_name} cal={data.nf_calories}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.nix_item_id} Calories={Calories} setCalories={setCalories} save={storeData} array={Nutrient}/>
 
        })}
         {NutData.common.map((data) => {
-        return <CommonTile  name={data.food_name} cal={data.full_nutrients}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.tag_id} Calories={Calories} setCalories={setCalories}/>
+        return <CommonTile  name={data.food_name} cal={data.full_nutrients}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.tag_id} Calories={Calories} setCalories={setCalories} save={storeData} array={Nutrient}/>
 
        })}
     

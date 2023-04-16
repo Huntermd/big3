@@ -17,7 +17,7 @@ let reqInstance = axios.create({
     
     });
     
-export default function BrandedCommonTile({ name,cal,Press, info, Nut,id,Calories, setCalories}) {
+export default function BrandedCommonTile({ name,cal,Press, info, Nut,id,Calories, setCalories,save,array}) {
     const [modalOpen,setModalOpen] = useState(false);
     const [NutData, setNutData] = useState({});
 
@@ -35,7 +35,7 @@ export default function BrandedCommonTile({ name,cal,Press, info, Nut,id,Calorie
   <Text style={styles.text}>{name}</Text>
       <Text>{cal}Cal</Text>
   </View>
-      <ModalComponent Open={modalOpen} Close={setModalOpen} Facts={info} Food={name} Pressing={Press} Nutt={Nut} id={id} Calories={Calories} setCalories={setCalories}/>
+      <ModalComponent Open={modalOpen} Close={setModalOpen} Facts={info} Food={name} Pressing={Press} Nutt={Nut} id={id} Calories={Calories} setCalories={setCalories} save={save} array={array}/>
     </Pressable>
   )
 }

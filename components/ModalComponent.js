@@ -5,7 +5,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import data from '../helpers/data';
 import { useState, useEffect } from 'react';
 import { ServingSize } from '../helpers/ServingSizeHelper';
-export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, id, Calories, setCalories}) {
+export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, id, Calories, setCalories,save,array}) {
  
   const [Serving, setServing] = useState(1)
   const [ServingNum, setServingNum] = useState(1);
@@ -22,8 +22,15 @@ export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, 
   const Num =  Math.round(CaloriesItem[0].value);
     const InfoPress = (data, id, name, serving1, serving2, multi) =>{
         Nutt(component => [...component, {data, id, name, serving1, serving2, multi  }]);
-         let Num = Serving + Serving2
-      setCalories(Calories - Math.round(Num) )
+        if(Multi ===1 ){
+          let Num =  Math.round(CaloriesItem[0].value);
+          setCalories(Calories - Math.round(Num) )
+        }else{
+          let Num = Serving + Serving2
+          setCalories(Calories - Math.round(Num) )
+        }
+        
+      
     }
   return (
    <Modal
@@ -36,7 +43,7 @@ export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, 
      <Pressable  onPress={() => Close(false)}>
         <Text style={{color: 'grey', fontSize: 25, fontWeight: 'bold'}}> X</Text>
       </Pressable>
-      <Pressable style={styles.AddButton} onPress={() => {Close(false); Pressing(false); InfoPress(Facts, id, Food,ServingNum,ServingNum2,Multi)}}>
+      <Pressable style={styles.AddButton} onPress={() => {Close(false); Pressing(false); InfoPress(Facts, id, Food,ServingNum,ServingNum2,Multi); save(array)}}>
         <Text style={{color: 'grey', fontSize: 20, fontWeight: 'bold'}}> ADD</Text>
       </Pressable>
      </View>
