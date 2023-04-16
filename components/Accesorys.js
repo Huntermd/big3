@@ -6,100 +6,38 @@ import { useState, useEffect } from 'react';
 
 
 
-export default function Accesorys({}) {
+export default function Accesorys({weight, sets,rep, exercise}) {
    
-  const [modal1Open,setModal1Open] = useState(false);
-  const [modal2Open,setModal2Open] = useState(false);
-  const [modal3Open,setModal3Open] = useState(false);
-  const [weight, setWeight] = useState(225);
-  const [rep,setReps] = useState(5);
-  const [sets,setSets] = useState(3);
+
+  
   return (
     <View style = {styles.rowContainer}>
       <View style={styles.barTitle}>
        
-      <SelectDropdown
-       
-       data = {data.exercises.Legs}
-       onSelect={(selectedItem, index) => {
-        console.log(selectedItem, index);
-      }}
-      defaultButtonText={'Exercises'}
-      buttonTextAfterSelection={(selectedItem, index) => {
-        
-        return selectedItem;
-      }}
-      rowTextForSelection={(item, index) => {
-        return item;
-      }}  />
+     <Text style={{color: 'orange', fontSize: 25, fontWeight: 'bold'}}>{exercise}</Text>
     
     </View>
-    <Pressable style={styles.barSection}  onPress={() => setModal3Open(true)}>
-    <Text>Sets</Text>
-      <Text>{sets}</Text>
-    </Pressable>
-    <Pressable style={styles.barSection} onPress={() => setModal2Open(true)}>
-    <Text>Reps</Text>
-      <Text>{rep}</Text>
-    </Pressable>
-
-    <Modal visible={modal1Open} transparent={true} >
-        <View style = {styles.centeredView}>
-        <View style = {styles.modalView} >
-      <Text>Select your weight:</Text>
-      <TextInput style={styles.CalInput} 
-      placeholder='2000'
-      onChangeText={(val) => setWeight(val)}
-      />
-      
-      <Pressable style={styles.backButton} onPress={() => setModal1Open(false)}>
-        <Text style={{color: 'grey'}}>Back</Text>
-      </Pressable>
+    <View style={styles.barSection}  >
+    <Text style={{color: 'orange'}}>Sets</Text>
+      <Text style={{color: 'orange'}}>{sets}</Text>
     </View>
-        </View>
-    
-      </Modal>
-
-      <Modal visible={modal2Open} transparent={true} >
-        <View style = {styles.centeredView}>
-        <View style = {styles.modalView} >
-      <Text>Select your reps:</Text>
-      <TextInput style={styles.CalInput} 
-      placeholder='2000'
-      onChangeText={(val) => setReps(val)}
-      />
-      
-      <Pressable style={styles.backButton} onPress={() => setModal2Open(false)}>
-        <Text style={{color: 'grey'}}>Back</Text>
-      </Pressable>
+    <View style={styles.barSection} >
+    <Text style={{color: 'orange'}}>Reps</Text>
+      <Text style={{color: 'orange'}}>{rep}</Text>
     </View>
-        </View>
-    
-      </Modal>
+
+   
+
+     
 
 
-    <Pressable style={styles.barSection} onPress={() => setModal1Open(true)} >
-      <Text>Weight</Text>
-      <Text>{weight}</Text>
-    </Pressable>
-
-
-    <Modal visible={modal3Open} transparent={true} >
-        <View style = {styles.centeredView}>
-        <View style = {styles.modalView} >
-      <Text>Select your Sets:</Text>
-      <TextInput style={styles.CalInput} 
-      placeholder='2000'
-      onChangeText={(val) => setSets(val)}
-      />
-      
-      <Pressable style={styles.backButton} onPress={() => setModal3Open(false)}>
-        <Text style={{color: 'grey'}}>Back</Text>
-      </Pressable>
+    <View style={styles.barSection}  >
+      <Text style={{color: 'orange'}}>Weight</Text>
+      <Text style={{color: 'orange'}}>{weight}</Text>
     </View>
-        </View>
+
+
     
-      </Modal>
 
     
     </View>
@@ -109,12 +47,13 @@ export default function Accesorys({}) {
 const styles = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         marginBottom: 6,
         borderRadius: 15,
         marginLeft: 8,
         marginRight: 8,
-        padding: 6
+        padding: 6,
+        marginTop: 5
     },
     barTitle: {
         flex: 3,
@@ -132,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     barSectionTitle: {
         color: '#777',

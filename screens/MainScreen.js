@@ -1,24 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Image,ScrollView } from 'react-native';
 import SummaryBar from '../components/SummaryBar';
 import YourProgram from '../components/YourProgram';
 import HealthFitness from '../components/HealthFitness';
 import data from '../helpers/data';
 import img from '../assets/ProgramPic.jpeg';
-
+import ProgramButton from '../components/ProgramButton';
+import { useState, useEffect } from 'react';
 import { Calendar } from 'react-native-calendars';
 
 import bg from '../assets/weight2.jpg';
 
 const MainScreen = ({navigation}) => {
-  
+  const [Programs,setPrograms] = useState([]);
     
        const Total = data.ormPress + data.ormDeadlift + data.ormSquat
     
-  
+       useEffect(() => {
+        console.log(Programs)
+        }, [Programs]
+        )
 
     return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <ImageBackground source={bg} resizeMode="cover" style={styles.bgImage} >
         <View style={styles.topContainer}>
           <View style={styles.titleBox}>
@@ -32,12 +36,18 @@ const MainScreen = ({navigation}) => {
             <Text style={styles.bigNumber}>22 days</Text>
           </View>
         </View>
-
+       
         <View style={styles.summaryContainer}>
-         <HealthFitness/>
+        <ScrollView  style={styles.ProgramRow} horizontal={true} >
+          
+        <ProgramButton array={setPrograms} setarray={Programs}/>
+         </ScrollView>
+         
+    
           <SummaryBar title="Deadlift" orm={data.ormDeadlift} tm={data.tmDeadlift} />
           <SummaryBar title="Press" orm={data.ormPress} tm={data.tmPress} />
           <SummaryBar title="Squat" orm={data.ormSquat} tm={data.tmSquat} />
+          <HealthFitness/>
         </View>
 
      
@@ -48,7 +58,7 @@ const MainScreen = ({navigation}) => {
         </View>
         <StatusBar style="auto" />
       </ImageBackground>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -130,5 +140,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
 
   },
+  ProgramRow:{
+flexDirection: 'row',
+
+
+  }
 
 });
