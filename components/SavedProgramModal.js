@@ -1,22 +1,19 @@
 import { StyleSheet, Text, View, Modal,Pressable,ScrollView } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import InputModal from './InputModal';
 import Accesorys from './Accesorys';
-import Topset1Component from './Topset1Component';
-export default function ModalProgram({Open,Close, Name,Close2,array,setarray}) {
-const [ModalOpen,setModalOpen] = useState(false)
-const [Accesory, setAccesory] = useState([]);
-const [TopSet1, setTopSet1] = useState([]);
+export default function SavedModalProgram({Open,Close, Name,data,array,setarray}) {
 
-const InfoPress = () =>{
-  array( [...setarray, {Accesory,TopSet1, Name } ])
+
+const Delete = () =>{
+  let NewArray = array.filter(item => item.Name !== Name)
+  setarray(NewArray)
  
 }
-useEffect(() => {
-  console.log(Accesory)
-  }, [Accesory]
-  )
+// useEffect(() => {
+//   console.log(Accesory)
+//   }, [Accesory]
+//   )
 
   return (
     <Modal
@@ -25,35 +22,30 @@ useEffect(() => {
         <View style={styles.centeredView}>
             <ScrollView style={styles.container}>
                 <View style={styles.NameBar}>
-                <Pressable  onPress={() => {Close(false); Close2(false)}}>
+                <Pressable  onPress={() => {Close(false); }}>
         <Text style={{color: 'grey', fontSize: 25, fontWeight: 'bold', margin:5}}> X</Text>
         
       </Pressable>
       <Text  style={{color: 'grey', fontSize: 25, fontWeight: 'bold', alignSelf: 'center'}}>{Name}</Text>
-      <Pressable style={styles.Button} onPress={() =>  { InfoPress() ;Close(false); Close2(false); }}>
+      <Pressable style={styles.Button} onPress={() =>  { Delete() ;Close(false);  }}>
         
         </Pressable>
                 </View>
                 <View >
-                {TopSet1.map((data) =>{
-                 return <Topset1Component sets={data.sets} weight={data.weight} rep={data.reps} exercise={data.exercise} sets2={data.backdownsets} rep2={data.backdownreps} weight2={data.backdownweight}/>
-                 })}
-      {Accesory.map((data) =>{
+               
+      {data.Accesory.map((data) =>{
         return <Accesorys sets={data.sets} weight={data.weight} rep={data.reps} exercise={data.exercise}/>
       })}
       
 
 
-<Pressable style={styles.OpenButton}  onPress={ () =>  setModalOpen(true)
- }>
-        <Text style={{color: 'grey', fontSize: 30, fontWeight: 'bold', marginTop: -8}}>+</Text>
-      </Pressable>
+
 </View>
          
             </ScrollView>
        
         </View>
-     <InputModal Open={ModalOpen} Close={setModalOpen} accesory={setAccesory} topset1={setTopSet1} />
+     
     </Modal>
   )
 }

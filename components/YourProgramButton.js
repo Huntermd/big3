@@ -3,9 +3,10 @@ import React from 'react'
 import img from '../assets/ProgramPic.jpeg';
 import ProgramNameModal from './ProgramNameModal';
 import { useState } from 'react';
+import SavedModalProgram from './SavedProgramModal';
 
 
-export default function ProgramButton({array,setarray}) {
+export default function YourProgramButton({data, name, array,setarray}) {
     const [ModalOpen, setModalOpen] = useState(false);
     const Open = () => (
         setModalOpen(true)
@@ -16,9 +17,9 @@ export default function ProgramButton({array,setarray}) {
     
 <Pressable style={styles.containerContain} onPress={Open}>
        <ImageBackground source={img} resizeMode="cover" style={styles.container} >
-        <Text style={styles.myText}>Press me to make a Program</Text>
+        <Text style={styles.myText}>{name}</Text>
         </ImageBackground>
-        <ProgramNameModal Open={ModalOpen} Close={setModalOpen} array={array} setarray={setarray}/>
+       <SavedModalProgram data={data} Name={name} Open={ModalOpen} Close={setModalOpen} array={array} setarray={setarray}/>
     </Pressable>
     
     

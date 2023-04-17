@@ -8,6 +8,7 @@ import img from '../assets/ProgramPic.jpeg';
 import ProgramButton from '../components/ProgramButton';
 import { useState, useEffect } from 'react';
 import { Calendar } from 'react-native-calendars';
+import YourProgramButton from '../components/YourProgramButton';
 
 import bg from '../assets/weight2.jpg';
 
@@ -39,7 +40,9 @@ const MainScreen = ({navigation}) => {
        
         <View style={styles.summaryContainer}>
         <ScrollView  style={styles.ProgramRow} horizontal={true} >
-          
+          {Programs.map((data) => {
+            return <YourProgramButton name={data.Name} data={data} array={Programs} setarray={setPrograms}/>
+          })}
         <ProgramButton array={setPrograms} setarray={Programs}/>
          </ScrollView>
          
