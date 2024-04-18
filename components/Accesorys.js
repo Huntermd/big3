@@ -11,7 +11,7 @@ export default function Accesorys({data}) {
 
   
   return (
-    <View style = {styles.rowContainer}>
+    <Pressable style = {styles.rowContainer} onLongPress={() =>{console.log('helloworld')}}>
       <View style={styles.barTitle}>
        
      <Text style={{color: 'orange', fontSize: 25, fontWeight: 'bold'}}>{data.exerciseName}</Text>
@@ -40,7 +40,7 @@ export default function Accesorys({data}) {
     
 
     
-    </View>
+    </Pressable>
   )
 }
 

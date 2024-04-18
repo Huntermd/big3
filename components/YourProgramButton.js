@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-export default function YourProgramButton({data, name,url}) {
+export default function YourProgramButton({data, name,url,get}) {
   let reqInstance = axios.create({
     headers:{
       'content-type': 'application/json',
@@ -34,7 +34,7 @@ export default function YourProgramButton({data, name,url}) {
  
   return (
     
-<Pressable style={styles.containerContain} onPress={Open}>
+<Pressable style={styles.containerContain} onPress={()=>{Open();get();}}>
        <ImageBackground source={img} resizeMode="cover" style={styles.container} >
         <Text style={styles.myText}>{name}</Text>
         </ImageBackground>

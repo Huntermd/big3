@@ -15,6 +15,7 @@ import axios from 'axios';
 
 
 const MainScreen = ({navigation}) => {
+  
   const userId = data.userId
   const url = data.url
   const [Programs,setPrograms] = useState([]);
@@ -67,7 +68,7 @@ const MainScreen = ({navigation}) => {
         <View style={styles.summaryContainer}>
         <ScrollView  style={styles.ProgramRow} horizontal={true} >
           {Programs.map((data) => {
-            return <YourProgramButton name={data.logName} data={data} url={url} />
+            return <YourProgramButton name={data.logName} data={data} url={url} get={getLogs}/>
           })}
         <ProgramButton array={setPrograms} setarray={Programs}/>
          </ScrollView>

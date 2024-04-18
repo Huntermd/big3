@@ -5,21 +5,31 @@ import SelectDropdown from 'react-native-select-dropdown';
 import data from '../helpers/data'
 import axios from 'axios';
 
-export default function AccesorysModal({Open, Close,index,logId }) {
+export default function AccesorysModal({Open, Close,index,logId ,get}) {
   const url = data.url
+  const [ModalOpen, setModalOpen] = useState(false)
+  const [Sets,setSets] = useState();
+  const [Reps, setReps] = useState();
+  const [Weight, setWeight] = useState();
+  const [Exercise, setExercise] = useState();
   let reqInstance = axios.create({
     headers:{
       'content-type': 'application/json',
       'accept': 'application/json'
       
-    }})
-    const [ModalOpen, setModalOpen] = useState(false)
-    const [Sets,setSets] = useState();
-    const [Reps, setReps] = useState();
-    const [Weight, setWeight] = useState();
-    const [Exercise, setExercise] = useState();
-    const saveLog =() =>{
-        reqInstance.post(`${url}add-logdata/${logId}`).then((res)=>{
+    },
+  })
+   
+    const saveLogData =() =>{
+        reqInstance.post(`${url}add-logdata/${logId}`,
+        {
+          idx : index,
+          exerciseName : Exercise,
+          weight: Weight,
+          sets: Sets,
+          reps: Reps
+    
+      }).then((res)=>{
             console.log(res)
         }).catch((err)=>{
           console.log(err)
@@ -84,7 +94,7 @@ export default function AccesorysModal({Open, Close,index,logId }) {
   
       
 
-                  <Pressable style={styles.Button} onPress={() =>  { Close(false);}}>
+                  <Pressable style={styles.Button} onPress={() =>  { Close(false);saveLogData();get()}}>
         
       </Pressable>
             </View>

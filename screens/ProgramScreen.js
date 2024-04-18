@@ -27,7 +27,7 @@ export default function ProgramScreen({navigation,route}) {
     reqInstance.get(`${url}get-logdata/${logId}`).then((res)=>{
         console.log(res.data.data)
         setlogData(res.data.data)
-        console.log(logData.length - 1)
+        
 
 
     }).catch((err)=>{
@@ -87,7 +87,7 @@ export default function ProgramScreen({navigation,route}) {
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={{color: 'grey'}}>Back</Text>
       </Pressable>
-      <AccesorysModal Open={ModalOpen} Close={setModalOpen} index={logData.length - 1} logId={logId}/>
+      <AccesorysModal Open={ModalOpen} Close={setModalOpen} index={logData.length} logId={logId} get={getlogData}/>
     </ScrollView>
   )
 }
