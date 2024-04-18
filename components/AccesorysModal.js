@@ -3,12 +3,27 @@ import React from 'react'
 import { useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown';
 import data from '../helpers/data'
+import axios from 'axios';
 
-export default function AccesorysModal({Open, Close, reps, sets, weight, exercise,array , reps2, sets2, weight2, exercise2,close2}) {
+export default function AccesorysModal({Open, Close,index,logId }) {
+  const url = data.url
+  let reqInstance = axios.create({
+    headers:{
+      'content-type': 'application/json',
+      'accept': 'application/json'
+      
+    }})
     const [ModalOpen, setModalOpen] = useState(false)
-
-    const InfoPress= (reps, sets,weight,exercise) =>{
-      array(component => [...component, {reps,sets,weight,exercise} ])
+    const [Sets,setSets] = useState();
+    const [Reps, setReps] = useState();
+    const [Weight, setWeight] = useState();
+    const [Exercise, setExercise] = useState();
+    const saveLog =() =>{
+        reqInstance.post(`${url}add-logdata/${logId}`).then((res)=>{
+            console.log(res)
+        }).catch((err)=>{
+          console.log(err)
+        })
     }
 
   return (
@@ -28,7 +43,7 @@ export default function AccesorysModal({Open, Close, reps, sets, weight, exercis
        
        data = {data.exercises.Legs}
        onSelect={(selectedItem, index) => {
-        exercise(selectedItem)
+        setExercise(selectedItem)
         console.log(selectedItem, index);
         
       }}
@@ -48,7 +63,7 @@ export default function AccesorysModal({Open, Close, reps, sets, weight, exercis
                 Select your sets
             </Text>
         <TextInput style={styles.TextInputStyle}
-        onChangeText={(val) => sets(parseInt(val)) }
+        onChangeText={(val) => setSets(parseInt(val)) }
         />
         
      
@@ -56,7 +71,7 @@ export default function AccesorysModal({Open, Close, reps, sets, weight, exercis
                 Select your reps
             </Text>
             <TextInput style={styles.TextInputStyle}
-            onChangeText={(val) => reps(parseInt(val))}
+            onChangeText={(val) => setReps(parseInt(val))}
             />
       
      
@@ -64,12 +79,12 @@ export default function AccesorysModal({Open, Close, reps, sets, weight, exercis
                 Select your weight
             </Text>
             <TextInput style={styles.TextInputStyleWeight}
-            onChangeText={(val) => weight(parseInt(val))}
+            onChangeText={(val) => setWeight(parseInt(val))}
             />
   
       
 
-                  <Pressable style={styles.Button} onPress={() =>  { Close(false); close2(false); InfoPress(reps2,sets2,weight2,exercise2)}}>
+                  <Pressable style={styles.Button} onPress={() =>  { Close(false);}}>
         
       </Pressable>
             </View>

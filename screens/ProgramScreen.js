@@ -2,17 +2,49 @@ import { StyleSheet, Text, View, Pressable, TextInput, Button, ScrollView } from
 import React from 'react'
 import MainLift from '../components/MainLift'
 import Accesorys from '../components/Accesorys'
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import data from '../helpers/data'
+import axios from 'axios'
+import AccesorysModal from '../components/AccesorysModal'
 
-export default function ProgramScreen({navigation}) {
-
+export default function ProgramScreen({navigation,route}) {
+  const url = data.url
+  let reqInstance = axios.create({
+    headers:{
+      'content-type': 'application/json',
+      'accept': 'application/json'
+      
+    }})
+   const {logId} = route.params;
+   const{name} = route.params;
+   
+   const [call,setCall] = useState(true);
+   const[logData,setlogData] = useState(false)
    const [component,setComponent] = useState([]);
+   const [ModalOpen, setModalOpen] = useState(false)
+
+   const getlogData = () =>{
+    reqInstance.get(`${url}get-logdata/${logId}`).then((res)=>{
+        console.log(res.data.data)
+        setlogData(res.data.data)
+        console.log(logData.length - 1)
+
+
+    }).catch((err)=>{
+      console.log(err)
+    })
+      
+   }
+
+   useEffect(()=>{
+    getlogData()
+   },[])
+   
 
   const handlePress = () => {
       
       
-    setComponent(component => [...component, '1']);
+  
   }
 
   const RemovePress = ( ) => {
@@ -28,39 +60,34 @@ export default function ProgramScreen({navigation}) {
 
   }
 
+  if(!logData){
+    return <Text>Loading</Text>
+  }
+
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.myText}>Week 1 Day 1</Text>
-      <MainLift lift = 'squat' sets = '1' reps = '4' weight = '270'  downSets = '4' downReps = '4' downWeight = '250'/>
-      <Accesorys  />
-      <Accesorys   />
-      <Accesorys   />
+      <Text style={styles.myText}>{name}</Text>
+      {/* <Accesorys data={logData[0]} /> */}
+      
 
-    {  component.map((data) => {
-        return <Accesorys key={data.id} />;
+    {  logData.map((data) => {
+        return <Accesorys key={data.movementId} data={data}  />;
       })}
 
 
      <View style={styles.RemoveAdd}>
-     <Pressable  onPress={handlePress} >
-      
-      <View>
-        <Text> Press me </Text>
-      </View>
-    </Pressable>
-
-    <Pressable  onPress={RemovePress} >
-    
-    <View>
-      <Text> delete  me </Text>
-    </View>
-  </Pressable>
+  
+     <Pressable style={styles.OpenButton}  onPress={() => {setModalOpen(true)}}>
+        <Text style={{color: 'grey', fontSize: 30, fontWeight: 'bold', marginTop: -8}}>+</Text>
+      </Pressable>
+   
      </View>
       
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <Text style={{color: 'grey'}}>Back</Text>
       </Pressable>
+      <AccesorysModal Open={ModalOpen} Close={setModalOpen} index={logData.length - 1} logId={logId}/>
     </ScrollView>
   )
 }
@@ -85,7 +112,17 @@ const styles = StyleSheet.create({
   },
   RemoveAdd:{
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'center'
+  },
+  OpenButton:{
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    borderColor: 'black',
+    borderWidth:4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
    
 })

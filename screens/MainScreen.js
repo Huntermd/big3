@@ -9,17 +9,43 @@ import ProgramButton from '../components/ProgramButton';
 import { useState, useEffect } from 'react';
 import { Calendar } from 'react-native-calendars';
 import YourProgramButton from '../components/YourProgramButton';
-
 import bg from '../assets/weight2.jpg';
+import getEnvVars from '../config';
+import axios from 'axios';
+
 
 const MainScreen = ({navigation}) => {
+  const userId = data.userId
+  const url = data.url
   const [Programs,setPrograms] = useState([]);
+  let reqInstance = axios.create({
+    headers:{
+      'content-type': 'application/json',
+      'accept': 'application/json'
+      
+    }
+    
+    });
     
        const Total = data.ormPress + data.ormDeadlift + data.ormSquat
+
+       const getLogs = () =>{
+          reqInstance.get(`${url}workout-logs/${userId}`).then((res)=>{
+            console.log('heyo')
+            console.log(res.data.logs)
+            setPrograms(res.data.logs)
+
+          }).catch((err) =>{
+            console.log('hello')
+            console.log(err)
+          })
+       }
     
        useEffect(() => {
-        console.log(Programs)
-        }, [Programs]
+        // console.log(Programs)
+        // console.log(API_URI)
+         getLogs()
+        }, []
         )
 
     return (
@@ -41,7 +67,7 @@ const MainScreen = ({navigation}) => {
         <View style={styles.summaryContainer}>
         <ScrollView  style={styles.ProgramRow} horizontal={true} >
           {Programs.map((data) => {
-            return <YourProgramButton name={data.Name} data={data} array={Programs} setarray={setPrograms}/>
+            return <YourProgramButton name={data.logName} data={data} url={url} />
           })}
         <ProgramButton array={setPrograms} setarray={Programs}/>
          </ScrollView>

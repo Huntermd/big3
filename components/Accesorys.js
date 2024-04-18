@@ -6,24 +6,24 @@ import { useState, useEffect } from 'react';
 
 
 
-export default function Accesorys({weight, sets,rep, exercise}) {
-   
+export default function Accesorys({data}) {
+   // weight, sets,rep, exercise
 
   
   return (
     <View style = {styles.rowContainer}>
       <View style={styles.barTitle}>
        
-     <Text style={{color: 'orange', fontSize: 25, fontWeight: 'bold'}}>{exercise}</Text>
+     <Text style={{color: 'orange', fontSize: 25, fontWeight: 'bold'}}>{data.exerciseName}</Text>
     
     </View>
     <View style={styles.barSection}  >
     <Text style={{color: 'orange'}}>Sets</Text>
-      <Text style={{color: 'orange'}}>{sets}</Text>
+      <Text style={{color: 'orange'}}>{data.sets}</Text>
     </View>
     <View style={styles.barSection} >
     <Text style={{color: 'orange'}}>Reps</Text>
-      <Text style={{color: 'orange'}}>{rep}</Text>
+      <Text style={{color: 'orange'}}>{data.reps}</Text>
     </View>
 
    
@@ -33,7 +33,7 @@ export default function Accesorys({weight, sets,rep, exercise}) {
 
     <View style={styles.barSection}  >
       <Text style={{color: 'orange'}}>Weight</Text>
-      <Text style={{color: 'orange'}}>{weight}</Text>
+      <Text style={{color: 'orange'}}>{data.weight}</Text>
     </View>
 
 

@@ -4,22 +4,41 @@ import img from '../assets/ProgramPic.jpeg';
 import ProgramNameModal from './ProgramNameModal';
 import { useState } from 'react';
 import SavedModalProgram from './SavedProgramModal';
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function YourProgramButton({data, name, array,setarray}) {
-    const [ModalOpen, setModalOpen] = useState(false);
-    const Open = () => (
-        setModalOpen(true)
+
+export default function YourProgramButton({data, name,url}) {
+  let reqInstance = axios.create({
+    headers:{
+      'content-type': 'application/json',
+      'accept': 'application/json'
       
-      
-      )
+    }
+    
+    });
+  const navigation = useNavigation();
+ const Open = () =>{
+  reqInstance.put(`${url}update-timestamp/${data.logId}`).then((res)=>{
+    
+
+  }).catch((err) =>{
+    
+    console.log(err)
+  })
+  navigation.navigate("Program", {logId: data.logId,name:name})
+}
+
+  
+ 
   return (
     
 <Pressable style={styles.containerContain} onPress={Open}>
        <ImageBackground source={img} resizeMode="cover" style={styles.container} >
         <Text style={styles.myText}>{name}</Text>
         </ImageBackground>
-       <SavedModalProgram data={data} Name={name} Open={ModalOpen} Close={setModalOpen} array={array} setarray={setarray}/>
+       
     </Pressable>
     
     
