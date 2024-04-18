@@ -1,5 +1,5 @@
 const data = {
-
+    url : 'http://10.0.0.246:8087/',
     version: 1,
     units: 'lbs',
 
@@ -12,6 +12,7 @@ const data = {
     tmDeadlift: 245,
 
     nextCompete: '1/1/2023',
+    userId : 1,
 
     exercises:{
         Legs:[
