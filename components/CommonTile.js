@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import React from 'react'
 import ModalComponent from './ModalComponent';
 import { useState } from 'react';
-export default function CommonTile({name, cal,Press, info, Nut,id,Calories, setCalories ,save,array}) {
+export default function CommonTile({name, cal,Press, info, Nut,id,Calories, setCalories ,array}) {
   const [modalOpen,setModalOpen] = useState(false);
 
   const CaloriesItem = cal.filter(item => item.attr_id === 208)
@@ -26,7 +26,7 @@ export default function CommonTile({name, cal,Press, info, Nut,id,Calories, setC
       <Text>{name}</Text>
       <Text>{Num} Cal</Text>
       </View>
-      <ModalComponent Open={modalOpen} Close={setModalOpen} Facts={info} Food={name} Pressing={Press} Nutt={Nut} id={id} Calories={Calories} setCalories={setCalories} save={save} array={array}/>
+      <ModalComponent Open={modalOpen} Close={setModalOpen} Facts={info} Food={name} Pressing={Press} Nutt={Nut} id={id} Calories={Calories} setCalories={setCalories}  array={array}/>
     </Pressable>
   )
 }

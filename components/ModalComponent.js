@@ -5,7 +5,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import data from '../helpers/data';
 import { useState, useEffect } from 'react';
 import { ServingSize } from '../helpers/ServingSizeHelper';
-export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, id, Calories, setCalories,save,array}) {
+export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, id, Calories, setCalories,array}) {
  
   const [Serving, setServing] = useState(1)
   const [ServingNum, setServingNum] = useState(1);
@@ -43,7 +43,7 @@ export default function ModalComponent({Open, Close, Facts, Food,Pressing,Nutt, 
      <Pressable  onPress={() => Close(false)}>
         <Text style={{color: 'grey', fontSize: 25, fontWeight: 'bold'}}> X</Text>
       </Pressable>
-      <Pressable style={styles.AddButton} onPress={() => {Close(false); Pressing(false); InfoPress(Facts, id, Food,ServingNum,ServingNum2,Multi); save(array)}}>
+      <Pressable style={styles.AddButton} onPress={() => {Close(false); Pressing(false); InfoPress(Facts, id, Food,ServingNum,ServingNum2,Multi)}}>
         <Text style={{color: 'grey', fontSize: 20, fontWeight: 'bold'}}> ADD</Text>
       </Pressable>
      </View>

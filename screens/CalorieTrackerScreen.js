@@ -11,7 +11,7 @@ import BrandedCommonTile from '../components/BrandedCommonTile';
 import CommonTile from '../components/CommonTile';
 import { Data } from '../helpers/DataFood';
 import { Food } from '../helpers/FoodInfo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 let reqInstance = axios.create({
 headers:{
@@ -44,39 +44,39 @@ export default function CalorieTrackerScreen() {
   const [NutData, setNutData] = useState(Food);
   const [Call,setCall] = useState('apple');
 
-  const storeData =  async () =>{
-    try {
-      const jsonValue = JSON.stringify(Nutrient)
-      await AsyncStorage.setItem('@Food_Key', jsonValue);
-    } catch (error) {
-      // Error saving data
-      console.log(error)
-    }
+  // const storeData =  async () =>{
+  //   try {
+  //     const jsonValue = JSON.stringify(Nutrient)
+  //     await AsyncStorage.setItem('@Food_Key', jsonValue);
+  //   } catch (error) {
+  //     // Error saving data
+  //     console.log(error)
+  //   }
     
-  }
+  // }
 
-  const getData = async () =>{
-    try {
-      const myArray = await AsyncStorage.getItem('@Food_Key');
-      if (myArray !== null) {
-        // We have data!!
-        setNutrient(JSON.parse(myArray))
-        console.log(JSON.parse(myArray));
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  }
+  // const getData = async () =>{
+  //   try {
+  //     const myArray = await AsyncStorage.getItem('@Food_Key');
+  //     if (myArray !== null) {
+  //       // We have data!!
+  //       setNutrient(JSON.parse(myArray))
+  //       console.log(JSON.parse(myArray));
+  //     }
+  //   } catch (error) {
+  //     // Error retrieving data
+  //   }
+  // }
 
-  const removeValue = async () => {
-    try {
-      await AsyncStorage.removeItem('@Food_Key')
-    } catch(e) {
-      // remove error
-    }
+  // const removeValue = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@Food_Key')
+  //   } catch(e) {
+  //     // remove error
+  //   }
   
-    console.log('Done.')
-  }
+  //   console.log('Done.')
+  // }
 
  const handlePress = (  ) => {
  
@@ -111,12 +111,12 @@ const CloseApi = () => {
   setApiOpen(false)
 }
 
-useEffect(() => {
-  console.log(NutData)
-  storeData(Nutrient)
-  getData()
+// useEffect(() => {
+//   console.log(NutData)
+//   storeData(Nutrient)
+//   getData()
   
-}, [NutData])
+// }, [NutData])
 
 
  const [modalOpen,setModalOpen] = useState(false);
@@ -173,11 +173,11 @@ const [Dinner,setDinner] = useState(199);
 
        <ScrollView style = {styles.ContentContainer} >
        {NutData.branded.map((data) => {
-        return <BrandedCommonTile  name={data.brand_name_item_name} cal={data.nf_calories}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.nix_item_id} Calories={Calories} setCalories={setCalories} save={storeData} array={Nutrient}/>
+        return <BrandedCommonTile  name={data.brand_name_item_name} cal={data.nf_calories}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.nix_item_id} Calories={Calories} setCalories={setCalories}  array={Nutrient}/>
 
        })}
         {NutData.common.map((data) => {
-        return <CommonTile  name={data.food_name} cal={data.full_nutrients}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.tag_id} Calories={Calories} setCalories={setCalories} save={storeData} array={Nutrient}/>
+        return <CommonTile  name={data.food_name} cal={data.full_nutrients}  info={data.full_nutrients} Press={setApiOpen} Nut={setNutrient} id={data.tag_id} Calories={Calories} setCalories={setCalories}  array={Nutrient}/>
 
        })}
     
