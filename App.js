@@ -7,7 +7,7 @@ import SquatScreen from './screens/SquatScreen';
 import ProgramScreen from './screens/ProgramScreen';
 import HealthScreen from './screens/HealthScreen';
 import CalorieTrackerScreen from './screens/CalorieTrackerScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import TimeSteps from './components/TimeSteps';
 import Provider from './components/Provider';
 import CameraComponent from './components/CameraComponent';
