@@ -12,6 +12,7 @@ import YourProgramButton from '../components/YourProgramButton';
 import bg from '../assets/weight2.jpg';
 import getEnvVars from '../config';
 import axios from 'axios';
+import UpdateDelete from '../components/UpdateDelete';
 
 
 const MainScreen = ({navigation}) => {
@@ -73,11 +74,13 @@ const MainScreen = ({navigation}) => {
         <ProgramButton array={setPrograms} setarray={Programs}/>
          </ScrollView>
          
+         
     
           <SummaryBar title="Deadlift" orm={data.ormDeadlift} tm={data.tmDeadlift} />
           <SummaryBar title="Press" orm={data.ormPress} tm={data.tmPress} />
           <SummaryBar title="Squat" orm={data.ormSquat} tm={data.tmSquat} />
           <HealthFitness/>
+          
         </View>
 
      

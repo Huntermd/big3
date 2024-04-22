@@ -36,6 +36,17 @@ export default function ProgramScreen({navigation,route}) {
       
    }
 
+const deleteData =(id,url) =>{
+  reqInstance.delete(`${url}delete-single-logdata/${id}`).then((res)=>{
+    
+
+  }).catch((err) =>{
+    
+    console.log(err)
+  })
+} 
+
+
    useEffect(()=>{
     getlogData()
    },[])
@@ -72,7 +83,7 @@ export default function ProgramScreen({navigation,route}) {
       
 
     {  logData.map((data) => {
-        return <Accesorys key={data.movementId} data={data}  />;
+        return <Accesorys key={data.movementId} data={data} get={getlogData} url={url}  del={deleteData}/>;
       })}
 
 

@@ -1,17 +1,20 @@
 import { StyleSheet, Text, View, TextInput, Modal,Pressable } from 'react-native'
 import React from 'react'
-import data from '../helpers/data'
+
 import SelectDropdown from 'react-native-select-dropdown';
 import { useState, useEffect } from 'react';
+import UpdateDelete from './UpdateDelete';
 
 
 
-export default function Accesorys({data}) {
+
+export default function Accesorys({data,url,get,del}) {
+  const [modalOpen,setModalOpen] = useState(false);
    // weight, sets,rep, exercise
 
   
   return (
-    <Pressable style = {styles.rowContainer} onLongPress={() =>{console.log('helloworld')}}>
+    <Pressable style = {styles.rowContainer} onLongPress={() => setModalOpen(true) }>
       <View style={styles.barTitle}>
        
      <Text style={{color: 'orange', fontSize: 25, fontWeight: 'bold'}}>{data.exerciseName}</Text>
@@ -39,7 +42,7 @@ export default function Accesorys({data}) {
 
     
 
-    
+    <UpdateDelete Open={modalOpen} Close={setModalOpen} id={data.movementId} get={get} Del={del} url={url}/>
     </Pressable>
   )
 }

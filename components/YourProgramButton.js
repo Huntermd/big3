@@ -6,10 +6,15 @@ import { useState } from 'react';
 import SavedModalProgram from './SavedProgramModal';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import UpdateDelete from './UpdateDelete';
+
 
 
 
 export default function YourProgramButton({data, name,url,get}) {
+ const [modalOpen,setModalOpen] = useState(false);
+  
+  
   let reqInstance = axios.create({
     headers:{
       'content-type': 'application/json',
@@ -29,16 +34,24 @@ export default function YourProgramButton({data, name,url,get}) {
   })
   navigation.navigate("Program", {logId: data.logId,name:name})
 }
+const Delete =(id,url) =>{
+  reqInstance.delete(`${url}delete-single-log/${id}`).then((res)=>{
+    
 
+  }).catch((err) =>{
+    
+    console.log(err)
+  })
+}
   
  
   return (
     
-<Pressable style={styles.containerContain} onPress={()=>{Open();get();}}>
+<Pressable style={styles.containerContain} onPress={()=>{Open();get();}} onLongPress={() => setModalOpen(true) }>
        <ImageBackground source={img} resizeMode="cover" style={styles.container} >
         <Text style={styles.myText}>{name}</Text>
         </ImageBackground>
-       
+        <UpdateDelete Open={modalOpen} Close={setModalOpen} id={data.logId} url={url} Del={Delete} get={get}/>
     </Pressable>
     
     
