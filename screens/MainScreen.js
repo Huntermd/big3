@@ -71,7 +71,7 @@ const MainScreen = ({navigation}) => {
           {Programs.map((data) => {
             return <YourProgramButton name={data.logName} data={data} url={url} get={getLogs}/>
           })}
-        <ProgramButton array={setPrograms} setarray={Programs}/>
+        <ProgramButton get={getLogs} userId={userId}/>
          </ScrollView>
          
          

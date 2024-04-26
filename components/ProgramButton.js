@@ -5,7 +5,7 @@ import ProgramNameModal from './ProgramNameModal';
 import { useState } from 'react';
 
 
-export default function ProgramButton({array,setarray}) {
+export default function ProgramButton({userId,get}) {
     const [ModalOpen, setModalOpen] = useState(false);
     const Open = () => (
         setModalOpen(true)
@@ -18,7 +18,7 @@ export default function ProgramButton({array,setarray}) {
        <ImageBackground source={img} resizeMode="cover" style={styles.container} >
         <Text style={styles.myText}>Press me to make a Program</Text>
         </ImageBackground>
-        <ProgramNameModal Open={ModalOpen} Close={setModalOpen} array={array} setarray={setarray}/>
+        <ProgramNameModal Open={ModalOpen} Close={setModalOpen}  get={get} userId={userId}/>
     </Pressable>
     
     

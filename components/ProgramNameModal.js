@@ -1,14 +1,33 @@
 import { StyleSheet, Text, View,Modal, Pressable, TextInput } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
-import ModalProgram from './ProgramModal';
+import data from '../helpers/data';
+import axios from 'axios';
 
-export default function ProgramNameModal({Open, Close, array,setarray}) {
+export default function ProgramNameModal({Open, Close,get,userId}) {
     const [Name,setName] = useState('');
-    const [ProgramModal,setProgramModel] = useState(false);
-    const OpenProgram = () =>{
-        setProgramModel(true)
-    }
+    const url = data.url
+    let reqInstance = axios.create({
+      headers:{
+        'content-type': 'application/json',
+        'accept': 'application/json'
+        
+      }
+      
+      });
+
+      const createLog = () =>{
+        reqInstance.post(`${url}add-log/${userId}`,
+      {
+        logName : Name
+    }).then((res)=>{
+          console.log(res.data)
+      }).catch((err)=>{
+        console.log(err)
+      })
+      }
+    
+  
   return (
     <Modal 
     visible={Open} transparent={true}
@@ -26,7 +45,7 @@ export default function ProgramNameModal({Open, Close, array,setarray}) {
                 Enter your Name for the Program
             </Text>
         </View>
-        <Pressable style={styles.Button} onPress={() =>  { setProgramModel(true)}}>
+        <Pressable style={styles.Button} onPress={() =>  {createLog(); get();Close(false)}}>
         
       </Pressable>
       <Text style={{color: 'orange', fontSize: 15, fontWeight: 'bold', alignSelf: 'center'}}>
@@ -36,7 +55,6 @@ export default function ProgramNameModal({Open, Close, array,setarray}) {
        
         </View>
 
-<ModalProgram Open={ProgramModal} Close={setProgramModel} Name={Name} Close2={Close} array={array} setarray={setarray}/>
     </Modal>
   )
 }
