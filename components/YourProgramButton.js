@@ -7,12 +7,14 @@ import SavedModalProgram from './SavedProgramModal';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import UpdateDelete from './UpdateDelete';
+import UpdateNameLog from './UpdateNameLog';
 
 
 
 
 export default function YourProgramButton({data, name,url,get}) {
  const [modalOpen,setModalOpen] = useState(false);
+ const [modalOpen2,setModalOpen2] = useState(false);
   
   
   let reqInstance = axios.create({
@@ -51,7 +53,8 @@ const Delete =(id,url) =>{
        <ImageBackground source={img} resizeMode="cover" style={styles.container} >
         <Text style={styles.myText}>{name}</Text>
         </ImageBackground>
-        <UpdateDelete Open={modalOpen} Close={setModalOpen} id={data.logId} url={url} Del={Delete} get={get}/>
+        <UpdateNameLog Open={modalOpen2} Close={setModalOpen2} logId={data.logId} get={get}/>
+        <UpdateDelete Open={modalOpen} Close={setModalOpen} id={data.logId} url={url} Del={Delete} get={get} setOpen={setModalOpen2}/>
     </Pressable>
     
     

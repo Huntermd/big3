@@ -4,12 +4,14 @@ import React from 'react'
 import SelectDropdown from 'react-native-select-dropdown';
 import { useState, useEffect } from 'react';
 import UpdateDelete from './UpdateDelete';
+import ProgramUpdateModal from './ProgramUpdateModal';
 
 
 
 
 export default function Accesorys({data,url,get,del}) {
   const [modalOpen,setModalOpen] = useState(false);
+  const [modalOpen2,setModalOpen2] = useState(false);
    // weight, sets,rep, exercise
 
   
@@ -41,8 +43,8 @@ export default function Accesorys({data,url,get,del}) {
 
 
     
-
-    <UpdateDelete Open={modalOpen} Close={setModalOpen} id={data.movementId} get={get} Del={del} url={url}/>
+    <ProgramUpdateModal Open={modalOpen2}Close={setModalOpen2} movementId={data.movementId} get={get}/>
+    <UpdateDelete Open={modalOpen} Close={setModalOpen} id={data.movementId} get={get} Del={del} url={url} setOpen={setModalOpen2}/>
     </Pressable>
   )
 }
